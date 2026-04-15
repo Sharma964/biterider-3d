@@ -13,6 +13,7 @@ import CheckoutPage from "@/pages/CheckoutPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import OrdersPage from "@/pages/OrdersPage";
 import LoginPage from "@/pages/Login";
+import SignupPage from "@/pages/Signup";
 import NotFound from "@/pages/NotFound";
 import { OrderProvider } from "@/context/OrderContext";
 import { AuthProvider } from "@/context/AuthContext";
@@ -34,6 +35,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
                 <Route path="/restaurants" element={<RestaurantsPage />} />
                 <Route path="/restaurant/:id" element={<MenuPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />

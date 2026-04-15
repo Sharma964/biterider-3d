@@ -12,6 +12,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (role: UserRole, email: string) => void;
+  signup: (role: UserRole, email: string, name: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -43,12 +44,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(mockUser);
   };
 
+  const signup = (role: UserRole, email: string, name: string) => {
+    // Mock signup logic
+    const mockUser: User = {
+      id: Math.random().toString(36).slice(2, 8).toUpperCase(),
+      name,
+      email,
+      role,
+    };
+    setUser(mockUser);
+  };
+
   const logout = () => {
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );
