@@ -66,7 +66,7 @@ const MenuPage = () => {
                     <h3 className="font-display font-semibold text-foreground">{item.name}</h3>
                     <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
                     <div className="flex items-center justify-between mt-3">
-                      <span className="font-display font-bold text-primary">${item.price.toFixed(2)}</span>
+                      <span className="font-display font-bold text-primary">₹{item.price.toFixed(2)}</span>
                       <button
                         onClick={() => handleAdd(item)}
                         className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-display font-semibold hover:brightness-110 transition-all glow-primary"

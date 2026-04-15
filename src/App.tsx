@@ -10,28 +10,58 @@ import LandingPage from "@/pages/LandingPage";
 import RestaurantsPage from "@/pages/RestaurantsPage";
 import MenuPage from "@/pages/MenuPage";
 import CheckoutPage from "@/pages/CheckoutPage";
+import AdminDashboard from "@/pages/AdminDashboard";
+import OrdersPage from "@/pages/OrdersPage";
+import LoginPage from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
+import { OrderProvider } from "@/context/OrderContext";
+import { AuthProvider } from "@/context/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Navbar />
-          <CartDrawer />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/restaurants" element={<RestaurantsPage />} />
-            <Route path="/restaurant/:id" element={<MenuPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <OrderProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Navbar />
+              <CartDrawer />
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/restaurants" element={<RestaurantsPage />} />
+                <Route path="/restaurant/:id" element={<MenuPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute requiredRole="RESTAURANT">
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                
+                <Route 
+                  path="/my-orders" 
+                  element={
+                    <ProtectedRoute requiredRole="CUSTOMER">
+                      <OrdersPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </OrderProvider>
+        </CartProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

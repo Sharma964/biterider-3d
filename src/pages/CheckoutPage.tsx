@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useOrders } from "@/context/OrderContext";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle2, MapPin, Phone, CreditCard } from "lucide-react";
 
 const CheckoutPage = () => {
   const { items, totalPrice, clearCart } = useCart();
+  const { placeOrder } = useOrders();
   const navigate = useNavigate();
   const [placed, setPlaced] = useState(false);
   const [form, setForm] = useState({
@@ -14,7 +16,7 @@ const CheckoutPage = () => {
     payment: "cash",
   });
 
-  const deliveryFee = 3.99;
+  const deliveryFee = 49;
   const total = totalPrice + deliveryFee;
 
   if (items.length === 0 && !placed) {
@@ -52,6 +54,17 @@ const CheckoutPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    placeOrder({
+      items,
+      totalPrice,
+      deliveryFee,
+      total,
+      address: form.address,
+      phone: form.phone,
+      payment: form.payment,
+    });
+
     clearCart();
     setPlaced(true);
   };
@@ -112,23 +125,23 @@ const CheckoutPage = () => {
               <div className="space-y-3 max-h-64 overflow-y-auto">
                 {items.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{item.name} × {item.quantity}</span>
-                    <span className="text-foreground font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="text-muted-foreground">{item.name} × {item.quantity} (₹{item.price} each)</span>
+                    <span className="text-foreground font-semibold">₹{(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
               <div className="border-t border-glass-border pt-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span className="text-foreground">${totalPrice.toFixed(2)}</span>
+                  <span className="text-foreground">₹{totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Delivery Fee</span>
-                  <span className="text-foreground">${deliveryFee.toFixed(2)}</span>
+                  <span className="text-foreground">₹{deliveryFee.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-display font-bold text-lg pt-2 border-t border-glass-border">
                   <span className="text-foreground">Total</span>
-                  <span className="text-primary">${total.toFixed(2)}</span>
+                  <span className="text-primary">₹{total.toFixed(2)}</span>
                 </div>
               </div>
               <button type="submit" className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-display font-bold glow-primary hover:brightness-110 transition-all mt-4">

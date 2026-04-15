@@ -51,7 +51,7 @@ const CartDrawer = () => {
                       <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
                       <div className="flex-1 min-w-0">
                         <h3 className="font-display font-semibold text-sm text-foreground truncate">{item.name}</h3>
-                        <p className="text-primary font-semibold text-sm mt-1">${item.price.toFixed(2)}</p>
+                        <p className="text-primary font-semibold text-sm mt-1">₹{item.price.toFixed(2)}</p>
                         <div className="flex items-center gap-3 mt-2">
                           <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-6 h-6 rounded-md bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
                             <Minus className="w-3 h-3" />
@@ -72,7 +72,7 @@ const CartDrawer = () => {
                 <div className="p-6 border-t border-glass-border space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-display font-bold text-lg text-foreground">${totalPrice.toFixed(2)}</span>
+                    <span className="font-display font-bold text-lg text-foreground">₹{totalPrice.toFixed(2)}</span>
                   </div>
                   <button
                     onClick={() => { setIsOpen(false); navigate("/checkout"); }}
