@@ -44,7 +44,7 @@ const SignupPage = () => {
         <div className="glass-card p-8">
           <div className="text-center mb-8">
             <h1 className="font-display font-extrabold text-3xl text-foreground mb-2">Join the Future</h1>
-            <p className="text-muted-foreground">Create your CyberGrub account</p>
+            <p className="text-muted-foreground">Create your Food Express account</p>
           </div>
 
           {/* Role Toggle */}

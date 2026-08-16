@@ -203,7 +203,7 @@ const LandingPage = () => (
     <footer className="border-t border-glass-border py-12">
       <div className="container mx-auto px-6 text-center">
         <p className="text-muted-foreground text-sm">
-          © 2026 CyberGrub. Fueling the future, one meal at a time.
+          © 2026 Food Express. Fueling the future, one meal at a time.
         </p>
       </div>
     </footer>
